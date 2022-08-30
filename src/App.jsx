@@ -8,6 +8,8 @@ import List from "./pages/List";
 import Filter from "./pages/Filter";
 import { Routes, Route, Link } from "react-router-dom";
 import { Text, UnorderedList, ListItem, Box } from "@chakra-ui/react";
+import RegisterPage from "./pages/RegisterPage";
+import RegisterT from "./pages/RegisterT";
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
           <ListItem><Link to ="/counter"> Counter </Link></ListItem>
           <ListItem><Link to ="/text"> Text </Link></ListItem>
           <ListItem><Link to ="/list"> list </Link></ListItem>
-          <ListItem><Link to ="/Filter"> Filter </Link></ListItem>
+          <ListItem><Link to ="/filter"> Filter </Link></ListItem>
+          <ListItem><Link to ="/registerpage"> Register Page </Link></ListItem>
+          <ListItem><Link to ="/registerT"> Register dari Kak Theo </Link></ListItem>
       </UnorderedList>
       <Routes>
         <Route path="/home" element={<Home />} />
@@ -32,6 +36,8 @@ function App() {
         <Route path="/Text" element={<TextPage />} />
         <Route path="/List" element={<List />} />
         <Route path="/Filter" element={<Filter />} />
+        <Route path="/registerpage" element={<RegisterPage />} />
+        <Route path="/registerT" element={<RegisterT />} />
       </Routes>
     </Box>
   );
