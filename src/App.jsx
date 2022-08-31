@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import Student from "./pages/Student";
 import UserList from "./pages/UserList";
 import ProductList from "./pages/ProductList";
+import ProductEdit from "./pages/ProductEdit";
 
 
 function App() {
@@ -124,7 +125,8 @@ function App() {
         <Route path="/reduxstudent" element={<ReduxStudent />} />
         <Route path="/student" element={<Student />} />
         <Route path="/userlist" element={<UserList />} />
-        <Route path="/productlist" element={<ProductList />} />
+        <Route path="/productlist/" element={<ProductList />} />
+        <Route path="/productlist/:id" element={<ProductEdit />} />
       </Routes>
     </Box>
   );
