@@ -6,5 +6,8 @@ const axiosInstance = axios.create({
 export const jsonServerAPI = axios.create({
     baseURL: 'http://localhost:2000/'
 })
+export const jsonServerDataAPI = axios.create({
+    baseURL: 'http://localhost:1000/'
+})
 
 export default axiosInstance

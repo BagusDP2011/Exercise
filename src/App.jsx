@@ -6,21 +6,48 @@ import TextPage from "./pages/Text";
 import List from "./pages/List";
 import Filter from "./pages/Filter";
 import { Routes, Route, Link } from "react-router-dom";
-import { Text, UnorderedList, ListItem, Box, Divider, Stack, HStack, Container } from "@chakra-ui/react";
+import { Text, UnorderedList, ListItem, Box, Divider, Stack, HStack, Container, Image, GridItem, Grid, InputRightElement, Toast } from "@chakra-ui/react";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterT from "./pages/RegisterT";
 import ReduxCounter from "./pages/ReduxCounter";
 import ReduxStudent from "./pages/ReduxStudent";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Student from "./pages/Student";
 import UserList from "./pages/UserList";
 import ProductList from "./pages/ProductList";
 import ProductEdit from "./pages/ProductEdit";
+import ExerciseEmployee from "./pages/ExerciseEmployee";
+import ExerciseEmployeeRegist from "./pages/ExerciseEmployeeRegist";
+import logo from './assets/GBBlack.png'
+import { fillEmployeeList } from "../src/features/employee/employeeSlice"
+import { useEffect } from "react";
+import { jsonServerDataAPI } from "../src/api/index"
+
 
 
 function App() {
   const counterSelector = useSelector((state) => state.counter)
   const studentSelector = useSelector((state) => state.student)
+  const employeeSelector = useSelector((state) => state.employee)
+
+  const dispatch = useDispatch()
+
+  const fetchEmployees = async () => {
+    try {
+        const response = await jsonServerDataAPI.get("/employee")
+        dispatch(fillEmployeeList(response.data))
+        console.log(response.data)
+    } catch (err){
+        console.log(err)
+        Toast({
+            title: "Network error",
+            status: "error",
+        })
+    }
+  }
+  useEffect(() => {
+    fetchEmployees()
+  }, [])
 
   // Data.map ====================================================
   // const renderProfiles = () => {
@@ -96,6 +123,12 @@ function App() {
               <ListItem>
                 <Link to="/productlist"> Product List </Link>
               </ListItem>
+              <ListItem>
+                <Link to="/exerciseemployee"> Exercise Employee 20220901 </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/exerciseemployeeregist"> Exercise Employee Registration </Link>
+              </ListItem>
             </Box>
             <Box width={"10%"} />
             </HStack>
@@ -104,12 +137,28 @@ function App() {
 
 
         <Divider orientation="horizontal" colorScheme="grey" variant="dashed" bgColor={"red"}/> <br />
-        <Text>Isi dari page:</Text>
-        <Text>Counter: {counterSelector.value}</Text>
+
         <Box minHeight="56px" backgroundColor="teal" padding="4">
-          <Text fontSize="5xl" fontWeight="bold" color="white">
-            Total Students: {studentSelector.data.length}
-          </Text>
+        <Grid templateRows="2fr, 1fr)" columnGap={"100"}>
+
+              <HStack justifyContent={"space-between"}>
+              <Text fontSize="5xl" fontWeight="bold" color="white">
+                BagusDP
+              </Text>
+
+                <Image borderRadius='full' boxSize='150px'
+                src={logo}
+                alt='GusbaXD Logo'>
+                </Image>
+              </HStack>
+
+            <GridItem>
+            <Text fontSize="xl" color="white">
+            Counter: {counterSelector.value} | Total Students: {studentSelector.data.length} | Total Employee: {employeeSelector.data.length}
+            </Text>
+            </GridItem>
+          
+          </Grid>
           </Box>
 
       <Routes>
@@ -127,6 +176,8 @@ function App() {
         <Route path="/userlist" element={<UserList />} />
         <Route path="/productlist/" element={<ProductList />} />
         <Route path="/productlist/:id" element={<ProductEdit />} />
+        <Route path="/exerciseemployee" element={<ExerciseEmployee />} />
+        <Route path="/exerciseemployeeregist" element={<ExerciseEmployeeRegist />} />
       </Routes>
     </Box>
   );

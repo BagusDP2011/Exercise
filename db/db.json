@@ -43,6 +43,12 @@
       "email": "asdasdasda@mail.com",
       "password": "asdAsda12@#",
       "id": 4
+    },
+    {
+      "employee_name": "Superman",
+      "email": "sudo@gamil.com",
+      "password": "asadasjd2@A",
+      "id": 5
     }
   ]
 }
