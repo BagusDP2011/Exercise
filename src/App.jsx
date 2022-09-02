@@ -22,6 +22,7 @@ import logo from './assets/GBBlack.png'
 import { fillEmployeeList } from "../src/features/employee/employeeSlice"
 import { useEffect } from "react";
 import { jsonServerDataAPI } from "../src/api/index"
+import ExerciseEmployeeEdit from "./pages/ExerciseEmployeeEdit";
 
 
 
@@ -34,7 +35,7 @@ function App() {
 
   const fetchEmployees = async () => {
     try {
-        const response = await jsonServerDataAPI.get("/employee")
+        const response = await jsonServerDataAPI.get("/employees")
         dispatch(fillEmployeeList(response.data))
         console.log(response.data)
     } catch (err){
@@ -153,9 +154,32 @@ function App() {
               </HStack>
 
             <GridItem>
+            <HStack justifyContent={"space-between"}>
             <Text fontSize="xl" color="white">
-            Counter: {counterSelector.value} | Total Students: {studentSelector.data.length} | Total Employee: {employeeSelector.data.length}
+            Counter: {counterSelector.value}
             </Text>
+            <Text fontSize="xl" color="white">
+            | 
+            </Text>
+            <Text fontSize="xl" color="white">
+            Total Students: {studentSelector.data.length}
+            </Text>
+            <Text fontSize="xl" color="white">
+            | 
+            </Text >
+            <Text fontSize="xl" color="white">
+            Total Employee: {employeeSelector.data.length}
+            </Text>
+            <Text fontSize="xl" color="white">
+            | 
+            </Text >
+            <Text fontSize="xl" color="white">
+              Current Employee <br />
+              ID: {employeeSelector.takeEmployee.id} <br />
+              Name: {employeeSelector.takeEmployee.employee_name} <br />
+              Email: {employeeSelector.takeEmployee.email}
+            </Text>
+            </HStack>
             </GridItem>
           
           </Grid>
@@ -178,6 +202,8 @@ function App() {
         <Route path="/productlist/:id" element={<ProductEdit />} />
         <Route path="/exerciseemployee" element={<ExerciseEmployee />} />
         <Route path="/exerciseemployeeregist" element={<ExerciseEmployeeRegist />} />
+        <Route path="/exerciseemployeeedit/:id" element={<ExerciseEmployeeEdit />} />
+
       </Routes>
     </Box>
   );

@@ -18,7 +18,7 @@ const ExerciseEmployeeRegist = () => {
 
     const fetchEmployees = async () => {
         try {
-            const response = await jsonServerDataAPI.get("/employee")
+            const response = await jsonServerDataAPI.get("/employees")
             dispatch(fillEmployeeList(response.data))
             console.log(response.data)
         } catch (err){
@@ -48,12 +48,12 @@ const ExerciseEmployeeRegist = () => {
                     password
                 }
     
-                await jsonServerDataAPI.post("/Employee", newemployee)
+                await jsonServerDataAPI.post("/employees", newemployee)
                 fetchEmployees()
+                Toast({ title: "Employee Added", status:"success"})
                 formik.setFieldValue("employee_name","")
                 formik.setFieldValue("email","")
                 formik.setFieldValue("password","")
-                Toast({ title: "Employee Added", status:"success"})
 
             } catch (err) {
                 Toast({ title: "Failed", status:"error"})
@@ -69,7 +69,7 @@ const ExerciseEmployeeRegist = () => {
                 "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
                 )
             }),
-        validateOnChange: true,
+        validateOnChange: false,
 
     })
 

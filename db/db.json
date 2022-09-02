@@ -19,7 +19,7 @@
       "stock": 10
     }
   ],
-  "employee": [
+  "employees": [
     {
       "id": 1,
       "employee_name": "Robert",
@@ -33,22 +33,22 @@
       "password": "schwartz123"
     },
     {
-      "employee_name": "Tes 3",
-      "email": "asd@gmail.com",
-      "password": "asdasd2#aA",
-      "id": 3
-    },
-    {
-      "employee_name": "aSdasasdd",
-      "email": "asdasdasda@mail.com",
-      "password": "asdAsda12@#",
+      "employee_name": "Superman",
+      "email": "super@gmail.com",
+      "password": "Super123!",
       "id": 4
     },
     {
-      "employee_name": "Superman",
-      "email": "sudo@gamil.com",
-      "password": "asadasjd2@A",
+      "employee_name": "Die Hard",
+      "email": "die@gmail.com",
+      "password": "DieDie21~!",
       "id": 5
+    },
+    {
+      "employee_name": "Tes delete",
+      "email": "asadasd@gmail.com",
+      "password": "oaisjdoiasj82@ssS",
+      "id": 6
     }
   ]
 }
