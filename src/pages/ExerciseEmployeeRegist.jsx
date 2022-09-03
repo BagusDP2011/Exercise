@@ -54,6 +54,7 @@ const ExerciseEmployeeRegist = () => {
                 formik.setFieldValue("employee_name","")
                 formik.setFieldValue("email","")
                 formik.setFieldValue("password","")
+                
 
             } catch (err) {
                 Toast({ title: "Failed", status:"error"})

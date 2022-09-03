@@ -6,7 +6,7 @@ import TextPage from "./pages/Text";
 import List from "./pages/List";
 import Filter from "./pages/Filter";
 import { Routes, Route, Link } from "react-router-dom";
-import { Text, UnorderedList, ListItem, Box, Divider, Stack, HStack, Container, Image, GridItem, Grid, InputRightElement, Toast } from "@chakra-ui/react";
+import { Text, UnorderedList, ListItem, Box, Divider, Stack, HStack, Container, Image, GridItem, Grid, InputRightElement, Toast, Button } from "@chakra-ui/react";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterT from "./pages/RegisterT";
 import ReduxCounter from "./pages/ReduxCounter";
@@ -19,8 +19,8 @@ import ProductEdit from "./pages/ProductEdit";
 import ExerciseEmployee from "./pages/ExerciseEmployee";
 import ExerciseEmployeeRegist from "./pages/ExerciseEmployeeRegist";
 import logo from './assets/GBBlack.png'
-import { fillEmployeeList } from "../src/features/employee/employeeSlice"
-import { useEffect } from "react";
+import { fillEmployeeList, resetTakeEmployee, takeEmployee } from "../src/features/employee/employeeSlice"
+import { useEffect, useState } from "react";
 import { jsonServerDataAPI } from "../src/api/index"
 import ExerciseEmployeeEdit from "./pages/ExerciseEmployeeEdit";
 
@@ -32,7 +32,13 @@ function App() {
   const employeeSelector = useSelector((state) => state.employee)
 
   const dispatch = useDispatch()
-
+  const [login, setLogin] = useState(false)
+  const loginStatus = () => {
+    setLogin(!login)
+    if (!login) {
+      dispatch(resetTakeEmployee())
+    }
+  }
   const fetchEmployees = async () => {
     try {
         const response = await jsonServerDataAPI.get("/employees")
@@ -175,9 +181,10 @@ function App() {
             </Text >
             <Text fontSize="xl" color="white">
               Current Employee <br />
-              ID: {employeeSelector.takeEmployee.id} <br />
+              {/* ID: {employeeSelector.takeEmployee.id} <br /> */}
               Name: {employeeSelector.takeEmployee.employee_name} <br />
-              Email: {employeeSelector.takeEmployee.email}
+              Email: {employeeSelector.takeEmployee.email} <br />
+              <Button colorScheme={"teal"} onClick={loginStatus}>Logout</Button>
             </Text>
             </HStack>
             </GridItem>

@@ -22,6 +22,11 @@ const initialState = {
     password: "",
     id: 0,
   },
+  loginEmployee: {
+    email: "",
+    password: "",
+    id: 0,
+  }
 };
 
 export const employeeSlice = createSlice({
@@ -36,16 +41,22 @@ export const employeeSlice = createSlice({
     },
     takeEmployee: (state, action) => {
       state.takeEmployee = {
-        employee_name: action.payload,
+        employee_name: action.payload.employee_name,
         email: action.payload.email,
         password: action.payload.password,
         id: action.payload.id,
       }
     },
+    loginEmployee: (state, action) => {
+      state.loginEmployee = action.payload;
+    },
+    resetTakeEmployee: () => {
+      return {...initialState}
+    }
   },
 });
 
-export const { fillEmployeeList, editEmployee, takeEmployee } =
+export const { fillEmployeeList, editEmployee, takeEmployee, loginEmployee, resetTakeEmployee } =
   employeeSlice.actions;
 
 export default employeeSlice.reducer;

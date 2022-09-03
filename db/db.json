@@ -49,6 +49,13 @@
       "email": "asadasd@gmail.com",
       "password": "oaisjdoiasj82@ssS",
       "id": 6
+    },
+    {
+      "employee_name": "To be deleted",
+      "email": "delete@ino.com",
+      "password": "Wowowowo123@",
+      "id": 7
     }
+    
   ]
 }
