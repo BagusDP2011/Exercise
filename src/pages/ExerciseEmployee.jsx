@@ -81,16 +81,6 @@ const ExerciseEmployee = () => {
     formik.setFieldValue(event.target.name, event.target.value);
   };
 
-  const newLoginBtn = () => {
-    dispatch(loginEmployee());
-    formik.setFieldValue("email", "");
-    formik.setFieldValue("password", "");
-    console.log(employeeSelector.loginEmployee);
-    // val.email === employeeSelector.takeEmployee.email ?
-    //  dispatch(takeEmployee()) :
-    //   Toast({ title: "Failed", status: "error" })
-  };
-
   const renderEmployee = () => {
     return employeeSelector.data.map((val) => {
       return (
@@ -141,27 +131,29 @@ const ExerciseEmployee = () => {
           console.log(val);
           loginStatus = true;
           dispatch(takeEmployee(val));
-          Toast({ title: "Login Successfully", status: "success" });
           fetchEmployees();
+          Toast({ title: "Login Successfully", status: "success" });
+          return;
         } else if (
           values.email === val.email &&
           values.password !== val.password
         ) {
-          return Toast({
+          Toast({
             title: "Login Failed: Wrong password",
             status: "error",
           });
+          return;
         } else if (
           values.password === val.password &&
           values.email !== val.email
         ) {
-          return Toast({
+          Toast({
             title: "User with email does not exist",
             status: "error",
           });
+          return;
         }
       });
-
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required("Email: Tidak boleh kosong"),
@@ -189,53 +181,64 @@ const ExerciseEmployee = () => {
         4. Buat button di navbar untuk LOGOUT
       */}
       <Box p="8" mb="8" borderRadius="6px" border="solid 1px lightgrey">
+        {!employeeSelector.takeEmployee.email ?  
+        <form onSubmit={formik.handleSubmit}>
         <Text fontWeight="bold" fontSize="4xl" mb="8">
           Login Employee
         </Text>
-        <Stack>
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              autoComplete="off"
-              value={formik.values.email}
-              onChange={formChangeHandler}
-              isInvalid={
-                formik.values.email.match(employeeSelector.takeEmployee.email)
-                  ? false
-                  : true
-              }
-              name="email"
-              type="email"
-            />
-            <FormErrorMessage>User with email does not exist</FormErrorMessage>
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <InputGroup>
+          <Stack>
+            <FormControl>
+              <FormLabel>Email</FormLabel>
               <Input
-                value={formik.values.password}
+                autoComplete="off"
+                value={formik.values.email}
                 onChange={formChangeHandler}
-                name="password"
                 isInvalid={
-                  formik.values.password.match(
-                  employeeSelector.takeEmployee.password)
+                  formik.values.email.match(employeeSelector.takeEmployee.email)
                     ? false
                     : true
                 }
-                type={show ? "text" : "password"}
+                name="email"
+                type="email"
               />
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={() => setshow(!show)}>
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-            <FormErrorMessage>Wrong password</FormErrorMessage>
-            <Button colorScheme="green" onClick={formik.handleSubmit}>
-              Login
-            </Button>
-          </FormControl>
-        </Stack>
+              <FormErrorMessage>
+                User with email does not exist
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input
+                  value={formik.values.password}
+                  onChange={formChangeHandler}
+                  name="password"
+                  isInvalid={
+                    formik.values.password.match(
+                      employeeSelector.takeEmployee.password
+                    )
+                      ? false
+                      : true
+                  }
+                  type={show ? "text" : "password"}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={() => setshow(!show)}>
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage>Wrong password</FormErrorMessage>
+              <Button
+                type="submit"
+                colorScheme="green"
+                onClick={formik.handleSubmit}
+              >
+                Login
+              </Button>
+            </FormControl>
+          </Stack>
+        </form>
+        : false}
       </Box>
 
       <Text fontWeight="bold" fontSize="4xl" marginBottom="16">

@@ -184,7 +184,9 @@ function App() {
               {/* ID: {employeeSelector.takeEmployee.id} <br /> */}
               Name: {employeeSelector.takeEmployee.employee_name} <br />
               Email: {employeeSelector.takeEmployee.email} <br />
+              {employeeSelector.takeEmployee.id ? 
               <Button colorScheme={"teal"} onClick={loginStatus}>Logout</Button>
+              : false}
             </Text>
             </HStack>
             </GridItem>
